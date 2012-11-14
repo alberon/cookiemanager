@@ -109,7 +109,7 @@ property specified when adding the handler.
 ## Example: Google Analytics
 ```js
 // Google Analytics
-CookieManager.add({
+var ga = CookieManager.add({
 
     name: 'ga',
 
@@ -148,15 +148,27 @@ CookieManager.add({
 });
 ```
 
+(Note that the CookieManager.add() method returns a `CookieManagerHandler`
+instance that includes the methods listed above (`get_status()`, `opt_in()`,
+`opt_out()`, `reset()`), as well as your custom methods/properties.)
+
 Then you would build a UI that uses these method calls to get/set the status:
+
+- `ga.get_status()` (returns `accept`, `block` or `unknown`)
+- `ga.opt_in()`
+- `ga.opt_out()`
+
+Or you can call these functions directly on `CookieManager`:
 
 - `CookieManager.get_status('ga')` (returns `accept`, `block` or `unknown`)
 - `CookieManager.opt_in('ga')`
 - `CookieManager.opt_out('ga')`
 
-Or you could build it into the same object.
+Or you could build the GUI functionality into the same object.
 
-Or you could have a separate object with the same name, to keep them independent.
+Or you could have a separate instance with the same name, to keep them
+independent. (Note that the event handlers for *all* instances with the same
+name are called, no matter which one you are working with.)
 
 ## Advanced usage
 
@@ -167,12 +179,13 @@ status for any cookie handler:
 CookieManager.subscribe('set_status', function(name, status) { ... });
 ```
 
-The CookieManager.add() method returns a CookieManagerHandler instance that
-includes all your custom methods/properties and the ones listed above
-(`get_status`, `opt_in`, `opt_out`, `reset`).
-
 You can also create a CookieManagerHandler instance manually if you want and
 pass that to `CookieManager.add()` instead of a plain object.
+
+```js
+var handler = new CookieManagerHandler(settings);
+CookieManager.add(handler);
+```
 
 ## Developer notes
 
