@@ -12,6 +12,15 @@
     // The length of time the cookie will be stored for
     CookieManager.cookie_days = 730; // 2 years
 
+    // The path to use for setting cookies
+    CookieManager.cookie_path = '/';
+
+    // The domain to use for setting cookies
+    CookieManager.cookie_domain = null;
+
+    // Whether cookies are only set for HTTPS
+    CookieManager.cookie_secure = false;
+
     // General cookie functions
     CookieManager.get_cookie = function(name, defaultValue) {
         // Source: http://www.quirksmode.org/js/cookies.html
@@ -104,9 +113,21 @@
 
         // Set or delete the cookie
         if (parts.length > 0) {
-            CookieManager.set_cookie(CookieManager.cookie_name, parts.join(","), CookieManager.cookie_days);
+            CookieManager.set_cookie(
+                CookieManager.cookie_name,
+                parts.join(","),
+                CookieManager.cookie_days,
+                CookieManager.cookie_path,
+                CookieManager.cookie_domain,
+                CookieManager.cookie_secure
+            );
         } else {
-            CookieManager.delete_cookie(CookieManager.cookie_name);
+            CookieManager.delete_cookie(
+                CookieManager.cookie_name,
+                CookieManager.cookie_path,
+                CookieManager.cookie_domain,
+                CookieManager.cookie_secure
+            );
         }
 
         // Notify any event handlers

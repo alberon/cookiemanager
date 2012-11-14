@@ -98,6 +98,9 @@ The following config options can be set *after* loading this file but
 
 - `CookieManager.cookie_name = 'cookieName';` (Default: `CookieManager`)
 - `CookieManager.cookie_days = 730;` (Default: 2 years)
+- `CookieManager.cookie_path = '/siteroot/;` (Default: `/`)
+- `CookieManager.cookie_domain = '.mysite.com';` (Default: current subdomain only)
+- `CookieManager.cookie_secure = true;` (Default: `false`)
 
 Note: Only one cookie is used for all handlers. They are concatenated in
 the format "handler1=allow,handler2=block", where "handler1" is the 'name'
@@ -202,6 +205,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ## Change log
+### v1.2
+- Allow path, domain and secure flag to be changed in config.
+- Set cookies for the entire site by default (i.e. path = `/`).
+
 ### v1.1.1
 - First public release - added a README.
 
