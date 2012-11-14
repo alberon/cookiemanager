@@ -8,7 +8,7 @@ Copyright © Alberon Ltd 2012. Released under the MIT License.
 ```js
 CookieManager.add({
     // A name to identify this type of cookie
-    name:                    "analytics",
+    name:                    'analytics',
 
     // Run immediately if the user has opted in
     if_opted_in:             function() {},
@@ -103,7 +103,7 @@ The following config options can be set *after* loading this file but
 - `CookieManager.cookie_secure = true;` (Default: `false`)
 
 Note: Only one cookie is used for all handlers. They are concatenated in
-the format "handler1=allow,handler2=block", where "handler1" is the 'name'
+the format 'handler1=allow,handler2=block', where 'handler1' is the 'name'
 property specified when adding the handler.
 
 ## Example: Google Analytics
@@ -164,7 +164,7 @@ You can register an event handler to be notified when the user changes the
 status for any cookie handler:
 
 ```js
-CookieManager.subscribe("set_status", function(name, status) { ... });
+CookieManager.subscribe('set_status', function(name, status) { ... });
 ```
 
 The CookieManager.add() method returns a CookieManagerHandler instance that
@@ -179,7 +179,7 @@ pass that to `CookieManager.add()` instead of a plain object.
 The following properties & methods are for internal use only:
 
 - `CookieManager.handlers` - An array holding all the handlers
-- `CookieManager.get_statuses()` - Returns an object of statuses, e.g. `{handler1: "allow"}`
+- `CookieManager.get_statuses()` - Returns an object of statuses, e.g. `{handler1: 'allow'}`
 - `CookieManager.run(handler, methodName)` - Run the named method on the given handler object (if possible)
 - `CookieManager.runAll(name, methodName)` - Run the named method on all handlers with the given name
 

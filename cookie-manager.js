@@ -7,7 +7,7 @@
     window.CookieManager = {}
 
     // The cookie name can be changed if necessary
-    CookieManager.cookie_name = "CookieManager";
+    CookieManager.cookie_name = 'CookieManager';
 
     // The length of time the cookie will be stored for
     CookieManager.cookie_days = 730; // 2 years
@@ -24,7 +24,7 @@
     // General cookie functions
     CookieManager.get_cookie = function(name, defaultValue) {
         // Source: http://www.quirksmode.org/js/cookies.html
-        var nameEQ = name + "=";
+        var nameEQ = name + '=';
         var ca = document.cookie.split(';');
         for (var i = 0; i < ca.length; i++) {
             var c = ca[i];
@@ -37,7 +37,7 @@
 
     CookieManager.set_cookie = function(name, value, expires, path, domain, secure) {
         if (path === null) {
-            path = "/";
+            path = '/';
         }
 
         // Source: http://techpatterns.com/downloads/javascript_cookies.php
@@ -57,15 +57,15 @@
         var expires_date = new Date(today.getTime() + (expires));
 
         document.cookie =
-        name + "=" + escape(value) +
-        ((expires) ? ";expires=" + expires_date.toGMTString() : "") +
-        ((path) ? ";path=" + path : "") +
-        ((domain) ? ";domain=" + domain : "") +
-        ((secure) ? ";secure" : "");
+        name + '=' + escape(value) +
+        ((expires) ? ';expires=' + expires_date.toGMTString() : '') +
+        ((path) ? ';path=' + path : '') +
+        ((domain) ? ';domain=' + domain : '') +
+        ((secure) ? ';secure' : '');
     }
 
     CookieManager.delete_cookie = function(name, path, domain, secure) {
-        CookieManager.set_cookie(name, "", -1, path, domain, secure);
+        CookieManager.set_cookie(name, '', -1, path, domain, secure);
     }
 
     // Get all the known cookie statuses as an object
@@ -73,9 +73,9 @@
         var obj = {};
         var cookie = CookieManager.get_cookie(CookieManager.cookie_name);
         if (cookie) {
-            cookie = cookie.split(",");
+            cookie = cookie.split(',');
             for (var i = 0; i < cookie.length; i++) {
-                var parts = cookie[i].split("=");
+                var parts = cookie[i].split('=');
                 if (parts.length == 2) {
                     obj[parts[0]] = parts[1];
                 }
@@ -84,13 +84,13 @@
         return obj;
     }
 
-    // Get the current status for a given cookie ("allow", "block" or "unknown")
+    // Get the current status for a given cookie ('allow', 'block' or 'unknown')
     CookieManager.get_status = function(name) {
         var statuses = CookieManager.get_statuses()
         if (statuses[name]) {
             return statuses[name];
         } else {
-            return "unknown";
+            return 'unknown';
         }
     }
 
@@ -98,8 +98,8 @@
     CookieManager.set_status = function(name, value) {
         var statuses = CookieManager.get_statuses()
 
-        // Set the new value (or remove if it's being set to "unknown")
-        if (!value || value == "unknown") {
+        // Set the new value (or remove if it's being set to 'unknown')
+        if (!value || value == 'unknown') {
             delete statuses[name];
         } else {
             statuses[name] = value;
@@ -108,14 +108,14 @@
         // Build up an array of values
         var parts = [];
         for (var i in statuses) {
-            parts.push(i + "=" + statuses[i]);
+            parts.push(i + '=' + statuses[i]);
         }
 
         // Set or delete the cookie
         if (parts.length > 0) {
             CookieManager.set_cookie(
                 CookieManager.cookie_name,
-                parts.join(","),
+                parts.join(','),
                 CookieManager.cookie_days,
                 CookieManager.cookie_path,
                 CookieManager.cookie_domain,
@@ -131,7 +131,7 @@
         }
 
         // Notify any event handlers
-        CookieManager.notify("set_status", name, value);
+        CookieManager.notify('set_status', name, value);
     }
 
     // All the handlers that have been added
@@ -149,24 +149,24 @@
 
         // Run the appropriate code immediately
         var status = CookieManager.get_status(handler.name);
-        if (status == "allow") {
-            CookieManager.run(handler, "if_opted_in");
-        } else if (status == "block") {
-            CookieManager.run(handler, "if_opted_out");
+        if (status == 'allow') {
+            CookieManager.run(handler, 'if_opted_in');
+        } else if (status == 'block') {
+            CookieManager.run(handler, 'if_opted_out');
         } else {
-            CookieManager.run(handler, "if_unknown");
+            CookieManager.run(handler, 'if_unknown');
         }
 
         // Run the appropriate code when the document is ready (require jQuery)
         if (jQuery) {
             jQuery(document).ready(function() {
-                CookieManager.run(handler, "at_ready");
-                if (status == "allow") {
-                    CookieManager.run(handler, "at_ready_if_opted_in");
-                } else if (status == "block") {
-                    CookieManager.run(handler, "at_ready_if_opted_out");
+                CookieManager.run(handler, 'at_ready');
+                if (status == 'allow') {
+                    CookieManager.run(handler, 'at_ready_if_opted_in');
+                } else if (status == 'block') {
+                    CookieManager.run(handler, 'at_ready_if_opted_out');
                 } else {
-                    CookieManager.run(handler, "at_ready_if_unknown");
+                    CookieManager.run(handler, 'at_ready_if_unknown');
                 }
             });
         }
@@ -179,17 +179,17 @@
     // Run a particular method for a given cookie blocker, if it exists
     CookieManager.run = function(handler, methodName) {
         if (handler[methodName]) {
-            if (typeof handler[methodName] == "object") {
+            if (typeof handler[methodName] == 'object') {
                 for (i in handler[methodName]) {
-                    if (typeof handler[methodName][i] == "string") {
+                    if (typeof handler[methodName][i] == 'string') {
                         CookieManager.run(handler, handler[methodName][i]);
                     } else {
                         handler[methodName][i]()
                     }
                 }
-            } else if (typeof handler[methodName] == "string") {
+            } else if (typeof handler[methodName] == 'string') {
                 // If it's a string, treat it as a pointer to another named function
-                // e.g. {run: function() {...}, at_opt_in: "run"}
+                // e.g. {run: function() {...}, at_opt_in: 'run'}
                 CookieManager.run(handler, handler[methodName]);
             } else {
                 handler[methodName]()
@@ -208,20 +208,20 @@
 
     // Opt in
     CookieManager.opt_in = function(name) {
-        CookieManager.set_status(name, "allow");
-        CookieManager.runAll(name, "at_opt_in");
+        CookieManager.set_status(name, 'allow');
+        CookieManager.runAll(name, 'at_opt_in');
     }
 
     // Opt out
     CookieManager.opt_out = function(name) {
-        CookieManager.set_status(name, "block");
-        CookieManager.runAll(name, "at_opt_out");
+        CookieManager.set_status(name, 'block');
+        CookieManager.runAll(name, 'at_opt_out');
     }
 
     // Reset settings
     CookieManager.reset = function(name) {
-        CookieManager.set_status(name, "unknown");
-        CookieManager.runAll(name, "at_reset");
+        CookieManager.set_status(name, 'unknown');
+        CookieManager.runAll(name, 'at_reset');
     }
 
     // Reset all known settings
@@ -262,7 +262,7 @@
     }
 
     // Default settings
-    CookieManagerHandler.prototype.name = "default";
+    CookieManagerHandler.prototype.name = 'default';
 
     // Helper methods
     CookieManagerHandler.prototype.get_status = function() {
