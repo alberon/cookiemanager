@@ -1,4 +1,4 @@
-# Cookie Manager v1.1.1
+# Cookie Manager
 by Dave Miller, [Alberon Ltd](http://www.alberon.co.uk/).
 
 Copyright © Alberon Ltd 2012. Released under the MIT License.
