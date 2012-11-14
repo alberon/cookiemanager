@@ -244,7 +244,7 @@
     CookieManager.notify = function(evt) {
         if (CookieManager.subscribed[evt]) {
             var args = Array.prototype.slice.call(arguments, 1);
-            for (var i in CookieManager.subscribed[evt]) {
+            for (var i = 0; i < CookieManager.subscribed[evt].length; i++) {
                 CookieManager.subscribed[evt][i].apply(null, args);
             }
         }

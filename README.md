@@ -218,6 +218,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ## Change log
+### v1.2.1
+- Remove for..in loop, for [MooTools compatibility](http://stackoverflow.com/questions/2040042/javascript-array-iteration-using-for-in-with-mootools-included).
+
 ### v1.2
 - Allow path, domain and secure flag to be changed in config.
 - Set cookies for the entire site by default (i.e. path = `/`).
