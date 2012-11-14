@@ -1,5 +1,4 @@
-﻿// Version 1.1.1
-// Copyright Alberon Ltd. 2012
+﻿// Copyright Alberon Ltd. 2012
 // MIT License
 (function() {
 
